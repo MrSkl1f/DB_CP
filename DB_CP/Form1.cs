@@ -32,9 +32,26 @@ namespace DB_CP
             _logger = logger;
             _user = currentUser;
             InitializeComponent();
+            CheckPerms();
         }
-    
-
+        private void CheckPerms()
+        {
+            if (_user.Permission == (int)Permissions.Analytic)
+            {
+                ManagerGroup.Enabled = false;
+                ModeratorGroup.Enabled = false;
+            }
+            else if (_user.Permission == (int)Permissions.Manager)
+            {
+                AnalyticGroup.Enabled = false;
+                ModeratorGroup.Enabled = false;
+            }
+            else
+            {
+                AnalyticGroup.Enabled = false;
+                ManagerGroup.Enabled = false;
+            }
+        }
         private void AddColumnsTeam()
         {
             dataGridView1.Rows.Clear();
@@ -275,10 +292,12 @@ namespace DB_CP
             if (PlayerIDForDesired.Text == "")
             {
                 MessageBox.Show("Не указан ID");
+                return;
             }
             if (_analytic.AddDesiredPlayer(Convert.ToInt32(PlayerIDForDesired.Text)) == false)
             {
                 MessageBox.Show("Не удалось добавить игрока");
+                return;
             }
             GetAllDesiredPlayers_Click(sender, e);
         }
@@ -287,10 +306,12 @@ namespace DB_CP
             if (DesiredPlayerID.Text == "")
             {
                 MessageBox.Show("Не указан ID");
+                return;
             }
             if (_analytic.DeleteDesiredPlayer(Convert.ToInt32(DesiredPlayerID.Text)) == false)
             {
                 MessageBox.Show("Не удалось удалить игрока");
+                return;
             }
             GetAllDesiredPlayers_Click(sender, e);
         }
@@ -299,14 +320,17 @@ namespace DB_CP
             if (PlayerIDForManager.Text == "")
             {
                 MessageBox.Show("Не указан ID");
+                return;
             }
             if (CostForManager.Text == "")
             {
                 MessageBox.Show("Не указана цена");
+                return;
             }
             if (_manager.RequestPlayer(Convert.ToInt32(PlayerIDForManager.Text), Convert.ToInt32(CostForManager.Text)) == false) 
             {
                 MessageBox.Show("Не удалось предложить игрока");
+                return;
             }
         }
         private void ConfirmDeal_Click(object sender, EventArgs e)
@@ -314,10 +338,12 @@ namespace DB_CP
             if (DealID.Text == "")
             {
                 MessageBox.Show("Не указан ID сделки");
+                return;
             }
             if (_manager.ConfirmDeal(Convert.ToInt32(DealID.Text)) == false)
             {
                 MessageBox.Show("Не удалось подтвердить сделку");
+                return;
             }
         }
         private void RejectDeal_Click(object sender, EventArgs e)
@@ -325,10 +351,12 @@ namespace DB_CP
             if (DealID.Text == "")
             {
                 MessageBox.Show("Не указан ID сделки");
+                return;
             }
             if (_manager.RejectDeal(Convert.ToInt32(DealID.Text)) == false)
             {
                 MessageBox.Show("Не удалось отклонить сделку");
+                return;
             }
         }
         private void GetIncoming_Click(object sender, EventArgs e)
@@ -363,7 +391,6 @@ namespace DB_CP
                 MessageBox.Show("Сделки не найдены");
             }
         }
-
         private void MakeDeal_Click(object sender, EventArgs e)
         {
             if (DealIDForModer.Text == "")
@@ -378,7 +405,6 @@ namespace DB_CP
                 }
             }
         }
-
         private void DeleteDeal_Click(object sender, EventArgs e)
         {
             if (DealIDForModer.Text == "")
@@ -393,7 +419,6 @@ namespace DB_CP
                 }
             }
         }
-
         private void GetAllDeals_Click(object sender, EventArgs e)
         {
             AddColumnsAvailableDeal();

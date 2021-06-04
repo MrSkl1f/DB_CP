@@ -1,4 +1,7 @@
 ﻿
+using System;
+using System.Windows.Forms;
+
 namespace DB_CP
 {
     partial class Form1
@@ -55,7 +58,7 @@ namespace DB_CP
             this.GetPlayersByTeamID = new System.Windows.Forms.Button();
             this.TeamIDBoxForPlayer = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.AnalyticGroup = new System.Windows.Forms.GroupBox();
             this.DeleteDesiredPlayer = new System.Windows.Forms.Button();
             this.DesiredPlayerID = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -75,7 +78,7 @@ namespace DB_CP
             this.label10 = new System.Windows.Forms.Label();
             this.PlayerIDForManager = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ModeratorGroup = new System.Windows.Forms.GroupBox();
             this.GetAllDeals = new System.Windows.Forms.Button();
             this.DeleteDeal = new System.Windows.Forms.Button();
             this.MakeDeal = new System.Windows.Forms.Button();
@@ -87,9 +90,9 @@ namespace DB_CP
             this.Players.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.TeamBoxForPlayers.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.AnalyticGroup.SuspendLayout();
             this.ManagerGroup.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.ModeratorGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -346,21 +349,21 @@ namespace DB_CP
             this.label1.TabIndex = 0;
             this.label1.Text = "Team ID";
             // 
-            // groupBox2
+            // AnalyticGroup
             // 
-            this.groupBox2.Controls.Add(this.DeleteDesiredPlayer);
-            this.groupBox2.Controls.Add(this.DesiredPlayerID);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.AddDesiredPlayer);
-            this.groupBox2.Controls.Add(this.GetAllDesiredPlayers);
-            this.groupBox2.Controls.Add(this.PlayerIDForDesired);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new System.Drawing.Point(766, 9);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(221, 179);
-            this.groupBox2.TabIndex = 13;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Analytic";
+            this.AnalyticGroup.Controls.Add(this.DeleteDesiredPlayer);
+            this.AnalyticGroup.Controls.Add(this.DesiredPlayerID);
+            this.AnalyticGroup.Controls.Add(this.label7);
+            this.AnalyticGroup.Controls.Add(this.AddDesiredPlayer);
+            this.AnalyticGroup.Controls.Add(this.GetAllDesiredPlayers);
+            this.AnalyticGroup.Controls.Add(this.PlayerIDForDesired);
+            this.AnalyticGroup.Controls.Add(this.label8);
+            this.AnalyticGroup.Location = new System.Drawing.Point(766, 9);
+            this.AnalyticGroup.Name = "AnalyticGroup";
+            this.AnalyticGroup.Size = new System.Drawing.Size(221, 179);
+            this.AnalyticGroup.TabIndex = 13;
+            this.AnalyticGroup.TabStop = false;
+            this.AnalyticGroup.Text = "Analytic";
             // 
             // DeleteDesiredPlayer
             // 
@@ -542,19 +545,19 @@ namespace DB_CP
             this.label9.TabIndex = 15;
             this.label9.Text = "Player ID";
             // 
-            // groupBox3
+            // ModeratorGroup
             // 
-            this.groupBox3.Controls.Add(this.GetAllDeals);
-            this.groupBox3.Controls.Add(this.DeleteDeal);
-            this.groupBox3.Controls.Add(this.MakeDeal);
-            this.groupBox3.Controls.Add(this.DealIDForModer);
-            this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Location = new System.Drawing.Point(993, 9);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(210, 156);
-            this.groupBox3.TabIndex = 25;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Manager";
+            this.ModeratorGroup.Controls.Add(this.GetAllDeals);
+            this.ModeratorGroup.Controls.Add(this.DeleteDeal);
+            this.ModeratorGroup.Controls.Add(this.MakeDeal);
+            this.ModeratorGroup.Controls.Add(this.DealIDForModer);
+            this.ModeratorGroup.Controls.Add(this.label14);
+            this.ModeratorGroup.Location = new System.Drawing.Point(993, 9);
+            this.ModeratorGroup.Name = "ModeratorGroup";
+            this.ModeratorGroup.Size = new System.Drawing.Size(210, 156);
+            this.ModeratorGroup.TabIndex = 25;
+            this.ModeratorGroup.TabStop = false;
+            this.ModeratorGroup.Text = "Moderator";
             // 
             // GetAllDeals
             // 
@@ -606,14 +609,16 @@ namespace DB_CP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1268, 617);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.ModeratorGroup);
+            this.Controls.Add(this.AnalyticGroup);
             this.Controls.Add(this.ManagerGroup);
             this.Controls.Add(this.UserBox);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CloseForm);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.UserBox.ResumeLayout(false);
@@ -625,14 +630,19 @@ namespace DB_CP
             this.groupBox1.PerformLayout();
             this.TeamBoxForPlayers.ResumeLayout(false);
             this.TeamBoxForPlayers.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.AnalyticGroup.ResumeLayout(false);
+            this.AnalyticGroup.PerformLayout();
             this.ManagerGroup.ResumeLayout(false);
             this.ManagerGroup.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.ModeratorGroup.ResumeLayout(false);
+            this.ModeratorGroup.PerformLayout();
             this.ResumeLayout(false);
 
+        }
+
+        void CloseForm(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
 
         #endregion
@@ -663,7 +673,7 @@ namespace DB_CP
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox TeamIDBoxForPlayer;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox AnalyticGroup;
         private System.Windows.Forms.Button DeleteDesiredPlayer;
         private System.Windows.Forms.Button AddDesiredPlayer;
         private System.Windows.Forms.Button GetAllDesiredPlayers;
@@ -684,7 +694,7 @@ namespace DB_CP
         private System.Windows.Forms.Button RejectDeal;
         private System.Windows.Forms.Button GetOutcoming;
         private System.Windows.Forms.Button GetIncoming;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox ModeratorGroup;
         private System.Windows.Forms.Button DeleteDeal;
         private System.Windows.Forms.Button MakeDeal;
         private System.Windows.Forms.TextBox DealIDForModer;

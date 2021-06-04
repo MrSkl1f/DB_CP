@@ -23,6 +23,14 @@ namespace ComponentAccessToDB
             {
                 return config["Connections:ConnectAsGuest"];
             }
+            else if (perms == (int)Permissions.Analytic)
+            {
+                return config["Connections:ConnectAsAnalytic"];
+            }
+            else if (perms == (int)Permissions.Manager)
+            {
+                return config["Connections:ConnectAsManager"];
+            }
             else
             {
                 return config["Connections:ConnectAsModer"];

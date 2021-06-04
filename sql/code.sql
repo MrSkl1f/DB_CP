@@ -77,3 +77,13 @@ insert into Statistics values (1, 30, 25);
 insert into Statistics values (2, 20, 15);
 insert into Player values (1, 1, 1, 'Vlad', 'ca', 75, 180, 17, 27, 'Russia', 500);
 insert into Player values (2, 1, 2, 'Denis', 'ca', 93, 193, 21, 20, 'Russia', 500);
+
+-- ROLE Guest
+create role guest with login password '1234';
+grant all privileges on table userinfo to guest;
+-- ROLE Analytic
+create role analytic with login password '1234';
+grant all privileges on table player, team, management, desiredplayers, statistics to analytic;
+-- ROLE Manager
+create role manager with login password '1234';
+grant all privileges on table player, team, management, desiredplayers, availabledeals, statistics to manager;
