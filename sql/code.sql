@@ -87,3 +87,51 @@ grant all privileges on table player, team, management, desiredplayers, statisti
 -- ROLE Manager
 create role manager with login password '1234';
 grant all privileges on table player, team, management, desiredplayers, availabledeals, statistics to manager;
+
+select PlayerTeam.playerid as PlayerID, PlayerTeam.player as Player, PlayerTeam.Team, statistics.numberOfWashers as Washers, statistics.averageGameTime as gametime
+from (
+    select PlayerID as playerid, player.Name as player, player.Statistics as PlayerStat, team.Name as Team
+    from player join team on player.TeamID = team.TeamID
+) as PlayerTeam
+join statistics on PlayerTeam.PlayerStat = statistics.StatisticsID;
+
+
+drop function if exists GetPlayers;
+create function GetPlayers()
+returns table
+(
+    PlayerID int,
+    Player varchar(40),
+    Team varchar(40),
+    Washers int,
+    gametime int
+)
+language sql
+as $$
+    select PlayerTeam.playerid as PlayerID, PlayerTeam.player as Player, PlayerTeam.Team as Team, statistics.numberOfWashers as Washers, statistics.averageGameTime as gametime
+    from (
+        select PlayerID as playerid, player.Name as player, player.Statistics as PlayerStat, team.Name as Team
+        from player join team on player.TeamID = team.TeamID
+    ) as PlayerTeam
+    join statistics on PlayerTeam.PlayerStat = statistics.StatisticsID;
+$$;
+
+drop procedure if exists makedeal(int, int, int, int, int);
+create or replace procedure makedeal(LastTeamID int, NewTeamID int, LastTeamBalance int, NewTeamBalance int, plID int)
+    language plpgsql
+as
+$$
+begin
+    update team
+    set Balance = LastTeamBalance
+    where TeamID = LastTeamID;
+
+    update team
+    set Balance = NewTeamBalance
+    where TeamID = NewTeamID;
+
+    update player
+    set TeamID = NewTeamID
+    where player.playerid = plID;
+end
+$$;

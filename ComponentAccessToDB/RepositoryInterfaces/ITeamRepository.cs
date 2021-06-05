@@ -11,6 +11,6 @@ namespace ComponentAccessToDB
         Team FindTeamByID(int id);
         Team FindTeamByName(string name);
         Team FindTeamByPlayer(Player player);
-        Team FindTeamByManagement(Management management);
+        Team FindTeamByManagement(int managementID);
     }
 }

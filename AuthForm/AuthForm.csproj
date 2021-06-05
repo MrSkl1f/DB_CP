@@ -21,7 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ComponentAccessToDB\ComponentAccessToDB.csproj" />
     <ProjectReference Include="..\ComponentBuisinessLogic\ComponentBuisinessLogic.csproj" />
-    <ProjectReference Include="..\DB_CP\DB_CP.csproj" />
+    <ProjectReference Include="..\DB_CP\MainForm.csproj" />
   </ItemGroup>
 
 </Project>

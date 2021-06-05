@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using ComponentAccessToDB;
 using ComponentBuisinessLogic;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,7 @@ namespace TechnologicalUI
                    .AddJsonFile("appsettings.json")
                    .Build();
             IUserInfoRepository rep = new UserInfoRepository(new transfersystemContext(Connection.GetConnection(0, _config)));
-            Userinfo user = rep.FindUserByLogin("567");
+            Userinfo user = rep.FindUserByLogin("admin");
             var builder = new HostBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
@@ -65,12 +66,14 @@ namespace TechnologicalUI
         private AnalyticController _analytic;
         private ManagerController _manager;
         private ModeratorController _moderator;
-        public Start(UserController user, AnalyticController analytic, ManagerController manager, ModeratorController moderator)
+        private transfersystemContext _db;
+        public Start(UserController user, AnalyticController analytic, ManagerController manager, ModeratorController moderator, transfersystemContext db)
         {
             _user = user;
             _analytic = analytic;
             _manager = manager;
             _moderator = moderator;
+            _db = db;
             Run();
         }
         public void Run()
@@ -112,7 +115,7 @@ namespace TechnologicalUI
             while (need != 6)
             {
                 Console.WriteLine("1 - Просмотреть всех игроков\n2 - Получить игрока по ID\n3 - Просмотреть все" +
-               " команды\n4 - Получить команду по ID\n5 - Получить статистику по ID\n6 - Exit");
+               " команды\n4 - Получить команду по ID\n5 - Получить статистику по ID\n6 - Exit\n7 - Тест функции");
                 need = Convert.ToInt32(Console.ReadLine());
                 switch (need)
                 {
@@ -133,10 +136,21 @@ namespace TechnologicalUI
                         break;
                     case 6:
                         break;
+                    case 7:
+                        TestFunc();
+                        break;
                     default:
                         Console.WriteLine("Неверный номер");
                         break;
                 }
+            }
+        }
+        void TestFunc()
+        {
+            IQueryable<PlayersTeamStat> result = _db.getplayers();
+            foreach (var res in result)
+            {
+                Console.WriteLine(res.playerid);
             }
         }
         void GetAllPlayers()

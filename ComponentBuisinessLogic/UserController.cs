@@ -15,21 +15,27 @@ namespace ComponentBuisinessLogic
         protected IDesiredPlayersRepository desiredPlayers;
         protected IStatisticsRepository statisticsRepository;
         protected IManagementRepository managementRepository;
+        protected IFunctionsRepository functionsRepository;
         protected Userinfo _user;
         protected ILogger<UserController> _logger;
-        public UserController(Userinfo user, ILogger<UserController> logger, IPlayerRepository playerRep, ITeamRepository teamRep, IManagementRepository managementRep, IDesiredPlayersRepository desiredPlayerRep, IStatisticsRepository statRep)
+        public UserController(Userinfo user, ILogger<UserController> logger, IFunctionsRepository funcRep, IPlayerRepository playerRep, ITeamRepository teamRep, IManagementRepository managementRep, IDesiredPlayersRepository desiredPlayerRep, IStatisticsRepository statRep)
         {
             playerRepository = playerRep;
             teamRepository = teamRep;
             desiredPlayers = desiredPlayerRep;
             statisticsRepository = statRep;
             managementRepository = managementRep;
+            functionsRepository = funcRep;
             _user = user;
             _logger = logger;
         }
         public List<Player> GetAllPlayers()
         {
             return playerRepository.GetAll();
+        }
+        public List<PlayersTeamStat> GetPlayerTeamStat()
+        {
+            return functionsRepository.GetPlayersTeamStat();
         }
         public List<Player> GetPlayersByTeam(int teamID)
         {

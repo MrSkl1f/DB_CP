@@ -74,12 +74,12 @@ namespace ComponentAccessToDB
         public Team FindTeamByPlayer(Player player)
         {
             IQueryable<Team> teams = db.Teams.Where(needed => needed.Players.Contains(player));
-            return teams.Count() > 0 ? teams.First() : null;
+            return teams.Count() > 0 ? teams.ToList().First() : null;
         }
-        public Team FindTeamByManagement(Management management)
+        public Team FindTeamByManagement(int managementID)
         {
-            IQueryable<Team> teams = db.Teams.Where(needed => needed.Managementid == management.Managementid);
-            return teams.Count() > 0 ? teams.First() : null;
+            IQueryable<Team> teams = db.Teams.Where(needed => needed.Managementid == managementID);
+            return teams.Count() > 0 ? teams.ToList().First() : null;
         }
         public void Dispose()
         {

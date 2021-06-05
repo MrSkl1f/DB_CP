@@ -13,7 +13,7 @@ using ComponentAccessToDB;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 
-namespace DB_CP
+namespace MainForm
 {
     static class Program
     {

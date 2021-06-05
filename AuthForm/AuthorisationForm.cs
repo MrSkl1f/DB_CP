@@ -114,6 +114,7 @@ namespace AuthForm
             services.AddSingleton<IAvailableDealsRepository, AvailableDealsRepository>();
             services.AddSingleton<IDesiredPlayersRepository, DesiredPlayersRepository>();
             services.AddSingleton<IManagementRepository, ManagementRepository>();
+            services.AddSingleton<IFunctionsRepository, FunctionRepository>();
         }
         public static void AddControllerExtensions(IServiceCollection services)
         {

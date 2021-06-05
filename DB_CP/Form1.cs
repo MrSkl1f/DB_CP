@@ -36,77 +36,93 @@ namespace DB_CP
         }
         private void CheckPerms()
         {
+            UserLogin.Text = _user.Login;
+            Password.Text = _user.Hash;
+            Status.Text = _user.Id.ToString();
             if (_user.Permission == (int)Permissions.Analytic)
             {
                 ManagerGroup.Enabled = false;
                 ModeratorGroup.Enabled = false;
+                Permission.Text = "Аналитик";
             }
             else if (_user.Permission == (int)Permissions.Manager)
             {
                 AnalyticGroup.Enabled = false;
                 ModeratorGroup.Enabled = false;
+                Permission.Text = "Менеджер";
             }
             else
             {
                 AnalyticGroup.Enabled = false;
                 ManagerGroup.Enabled = false;
+                Permission.Text = "Модератор";
             }
         }
         private void AddColumnsTeam()
         {
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
-            dataGridView1.Columns.Add("TeamID", "Team ID");
-            dataGridView1.Columns.Add("ManagamanetID", "Managament ID");
-            dataGridView1.Columns.Add("Name", "Team Name");
-            dataGridView1.Columns.Add("Headcoach", "HeadCoach");
-            dataGridView1.Columns.Add("Country", "Country");
-            dataGridView1.Columns.Add("Stadium", "Stadium");
-            dataGridView1.Columns.Add("Balance", "Balance");
+            dataGridView1.Columns.Add("TeamID", "ID команды");
+            dataGridView1.Columns.Add("ManagamanetID", "ID менеджемнта");
+            dataGridView1.Columns.Add("Name", "Имя команды");
+            dataGridView1.Columns.Add("Headcoach", "Главный тренер");
+            dataGridView1.Columns.Add("Country", "Страна");
+            dataGridView1.Columns.Add("Stadium", "Стадион");
+            dataGridView1.Columns.Add("Balance", "Баланс");
         }
         private void AddColumnsStatistic()
         {
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
-            dataGridView1.Columns.Add("StatisticsId", "Statistics Id");
-            dataGridView1.Columns.Add("Numberofwashers", "Number of washers");
-            dataGridView1.Columns.Add("Averagegametime", "Average game time");
+            dataGridView1.Columns.Add("StatisticsId", "ID статистики");
+            dataGridView1.Columns.Add("Numberofwashers", "Количество шайб");
+            dataGridView1.Columns.Add("Averagegametime", "Среднее игровое время");
         }
         private void AddColumnsPlayer()
         {
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
-            dataGridView1.Columns.Add("PlayerId", "Player ID");
-            dataGridView1.Columns.Add("TeamId", "Team ID");
-            dataGridView1.Columns.Add("Statistics", "Statistics");
-            dataGridView1.Columns.Add("Name", "Player Name");
-            dataGridView1.Columns.Add("Position", "Position");
-            dataGridView1.Columns.Add("Weight", "Weight");
-            dataGridView1.Columns.Add("Height", "Height");
-            dataGridView1.Columns.Add("Number", "Number");
-            dataGridView1.Columns.Add("Age", "Age");
-            dataGridView1.Columns.Add("Country", "Country");
-            dataGridView1.Columns.Add("Cost", "Cost");
+            dataGridView1.Columns.Add("PlayerId", "ID игрока");
+            dataGridView1.Columns.Add("TeamId", "ID команды");
+            dataGridView1.Columns.Add("Statistics", "ID статистики");
+            dataGridView1.Columns.Add("Name", "Имя игрока");
+            dataGridView1.Columns.Add("Position", "Позиция");
+            dataGridView1.Columns.Add("Weight", "Вес");
+            dataGridView1.Columns.Add("Height", "Рост");
+            dataGridView1.Columns.Add("Number", "Номер");
+            dataGridView1.Columns.Add("Age", "Возраст");
+            dataGridView1.Columns.Add("Country", "Страна");
+            dataGridView1.Columns.Add("Cost", "Цена");
         }
         private void AddColumnsDesiredPlayer()
         {
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
-            dataGridView1.Columns.Add("Id", "ID");
-            dataGridView1.Columns.Add("PlayerId", "Player ID");
-            dataGridView1.Columns.Add("TeamId", "Team ID");
-            dataGridView1.Columns.Add("ManagementID", "Management ID");
+            dataGridView1.Columns.Add("Id", "ID желаемого игрока");
+            dataGridView1.Columns.Add("PlayerId", "ID игрока");
+            dataGridView1.Columns.Add("TeamId", "ID команды");
+            dataGridView1.Columns.Add("ManagementID", "ID менеджемнта");
         }
         private void AddColumnsAvailableDeal()
         {
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
-            dataGridView1.Columns.Add("Id", "ID");
-            dataGridView1.Columns.Add("PlayerID", "Player ID");
-            dataGridView1.Columns.Add("ToManagementId", "To Management ID");
-            dataGridView1.Columns.Add("FromManagementId", "From Management ID");
-            dataGridView1.Columns.Add("Cost", "Cost");
-            dataGridView1.Columns.Add("Status", "Status");
+            dataGridView1.Columns.Add("Id", "ID доступной сделки");
+            dataGridView1.Columns.Add("PlayerID", "ID игрока");
+            dataGridView1.Columns.Add("ToManagementId", "Какому менеджменту");
+            dataGridView1.Columns.Add("FromManagementId", "От какого менеджмента");
+            dataGridView1.Columns.Add("Cost", "Цена");
+            dataGridView1.Columns.Add("Status", "Статус");
+        }
+        private void AddColumnsPlayerTeamStat()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.Columns.Add("playerid", "ID Игрока");
+            dataGridView1.Columns.Add("player", "Имя игрока");
+            dataGridView1.Columns.Add("team", "Команда игрока");
+            dataGridView1.Columns.Add("washers", "Количество шайб");
+            dataGridView1.Columns.Add("gametime", "Игровое время");
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -345,6 +361,10 @@ namespace DB_CP
                 MessageBox.Show("Не удалось подтвердить сделку");
                 return;
             }
+            else
+            {
+                MessageBox.Show("Сделка подтверждена");
+            }
         }
         private void RejectDeal_Click(object sender, EventArgs e)
         {
@@ -403,6 +423,11 @@ namespace DB_CP
                 {
                     MessageBox.Show("Не удалось провести сделку");
                 }
+                else
+                {
+                    MessageBox.Show("Сделка проведена");
+                    _moderator.DeleteDeal(Convert.ToInt32(DealIDForModer.Text));
+                }
             }
         }
         private void DeleteDeal_Click(object sender, EventArgs e)
@@ -416,6 +441,10 @@ namespace DB_CP
                 if (!_moderator.DeleteDeal(Convert.ToInt32(DealIDForModer.Text)))
                 {
                     MessageBox.Show("Не удалось удалить сделку");
+                }
+                else
+                {
+                    MessageBox.Show("Сделка удалена");
                 }
             }
         }
@@ -434,6 +463,55 @@ namespace DB_CP
             {
                 MessageBox.Show("Сделки не найдены");
             }
+        }
+
+        private void GetPlayerTeamStat_Click(object sender, EventArgs e)
+        {
+            AddColumnsPlayerTeamStat();
+            List<PlayersTeamStat> players = _userController.GetPlayerTeamStat();
+            if (players != null)
+            {
+                foreach (PlayersTeamStat player in players)
+                {
+                    dataGridView1.Rows.Add(player.playerid, player.player, player.team, player.washers, player.gametime);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Игроки не найдены");
+            }
+        }
+
+        private void GetDesiredPlayersForManager_Click(object sender, EventArgs e)
+        {
+            AddColumnsDesiredPlayer();
+            List<Desiredplayer> players = _manager.GetAllDesiredPlayers();
+            if (players != null)
+            {
+                foreach (Desiredplayer player in players)
+                {
+                    dataGridView1.Rows.Add(player.Id, player.Playerid, player.Teamid, player.Managementid);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Игроки не найдены");
+            }
+        }
+
+        private void DeleteDesPlayerManager_Click(object sender, EventArgs e)
+        {
+            if (DesiredPlayerForManager.Text == "")
+            {
+                MessageBox.Show("Не указан ID");
+                return;
+            }
+            if (_manager.DeleteDesiredPlayer(Convert.ToInt32(DesiredPlayerForManager.Text)) == false)
+            {
+                MessageBox.Show("Не удалось удалить игрока");
+                return;
+            }
+            GetAllDesiredPlayers_Click(sender, e);
         }
     }
 }

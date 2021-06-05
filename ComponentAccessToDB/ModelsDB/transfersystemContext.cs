@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -26,7 +27,7 @@ namespace ComponentAccessToDB
         public virtual DbSet<Statistic> Statistics { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<Userinfo> Userinfos { get; set; }
-
+        public IQueryable<PlayersTeamStat> getplayers() => FromExpression(() => getplayers());
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -38,6 +39,9 @@ namespace ComponentAccessToDB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+            modelBuilder.HasDbFunction(() => getplayers());
+
             modelBuilder.HasAnnotation("Relational:Collation", "Russian_Russia.1251");
 
             modelBuilder.Entity<Availabledeal>(entity =>

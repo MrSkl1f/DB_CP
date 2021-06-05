@@ -40,6 +40,7 @@ namespace DB_CP
             this.label6 = new System.Windows.Forms.Label();
             this.StatisticsID = new System.Windows.Forms.TextBox();
             this.Players = new System.Windows.Forms.GroupBox();
+            this.GetPlayerTeamStat = new System.Windows.Forms.Button();
             this.GetPlayersByName = new System.Windows.Forms.Button();
             this.PlayerName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -67,6 +68,7 @@ namespace DB_CP
             this.PlayerIDForDesired = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.ManagerGroup = new System.Windows.Forms.GroupBox();
+            this.GetDesiredPlayersForManager = new System.Windows.Forms.Button();
             this.GetOutcoming = new System.Windows.Forms.Button();
             this.GetIncoming = new System.Windows.Forms.Button();
             this.RejectDeal = new System.Windows.Forms.Button();
@@ -84,6 +86,19 @@ namespace DB_CP
             this.MakeDeal = new System.Windows.Forms.Button();
             this.DealIDForModer = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.UserLogin = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.Password = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.Permission = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.Status = new System.Windows.Forms.Label();
+            this.DeleteDesPlayerManager = new System.Windows.Forms.Button();
+            this.DesiredPlayerForManager = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.UserBox.SuspendLayout();
             this.StatisticsBox.SuspendLayout();
@@ -98,10 +113,10 @@ namespace DB_CP
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 12);
+            this.dataGridView1.Location = new System.Drawing.Point(26, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(533, 593);
+            this.dataGridView1.Size = new System.Drawing.Size(788, 654);
             this.dataGridView1.TabIndex = 1;
             // 
             // GetAllPlayers
@@ -120,9 +135,9 @@ namespace DB_CP
             this.UserBox.Controls.Add(this.Players);
             this.UserBox.Controls.Add(this.groupBox1);
             this.UserBox.Controls.Add(this.TeamBoxForPlayers);
-            this.UserBox.Location = new System.Drawing.Point(551, 9);
+            this.UserBox.Location = new System.Drawing.Point(820, 12);
             this.UserBox.Name = "UserBox";
-            this.UserBox.Size = new System.Drawing.Size(209, 593);
+            this.UserBox.Size = new System.Drawing.Size(209, 654);
             this.UserBox.TabIndex = 3;
             this.UserBox.TabStop = false;
             this.UserBox.Text = "User";
@@ -132,7 +147,7 @@ namespace DB_CP
             this.StatisticsBox.Controls.Add(this.GetStatisticsByID);
             this.StatisticsBox.Controls.Add(this.label6);
             this.StatisticsBox.Controls.Add(this.StatisticsID);
-            this.StatisticsBox.Location = new System.Drawing.Point(6, 496);
+            this.StatisticsBox.Location = new System.Drawing.Point(6, 553);
             this.StatisticsBox.Name = "StatisticsBox";
             this.StatisticsBox.Size = new System.Drawing.Size(195, 89);
             this.StatisticsBox.TabIndex = 14;
@@ -167,6 +182,7 @@ namespace DB_CP
             // 
             // Players
             // 
+            this.Players.Controls.Add(this.GetPlayerTeamStat);
             this.Players.Controls.Add(this.GetPlayersByName);
             this.Players.Controls.Add(this.PlayerName);
             this.Players.Controls.Add(this.label2);
@@ -176,10 +192,20 @@ namespace DB_CP
             this.Players.Controls.Add(this.GetAllPlayers);
             this.Players.Location = new System.Drawing.Point(7, 22);
             this.Players.Name = "Players";
-            this.Players.Size = new System.Drawing.Size(194, 182);
+            this.Players.Size = new System.Drawing.Size(194, 241);
             this.Players.TabIndex = 13;
             this.Players.TabStop = false;
             this.Players.Text = "Player";
+            // 
+            // GetPlayerTeamStat
+            // 
+            this.GetPlayerTeamStat.Location = new System.Drawing.Point(6, 178);
+            this.GetPlayerTeamStat.Name = "GetPlayerTeamStat";
+            this.GetPlayerTeamStat.Size = new System.Drawing.Size(176, 47);
+            this.GetPlayerTeamStat.TabIndex = 12;
+            this.GetPlayerTeamStat.Text = "Получить игроков, их команды и статистики";
+            this.GetPlayerTeamStat.UseVisualStyleBackColor = true;
+            this.GetPlayerTeamStat.Click += new System.EventHandler(this.GetPlayerTeamStat_Click);
             // 
             // GetPlayersByName
             // 
@@ -242,7 +268,7 @@ namespace DB_CP
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.TeamID);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Location = new System.Drawing.Point(7, 302);
+            this.groupBox1.Location = new System.Drawing.Point(7, 361);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(194, 188);
             this.groupBox1.TabIndex = 11;
@@ -316,7 +342,7 @@ namespace DB_CP
             this.TeamBoxForPlayers.Controls.Add(this.GetPlayersByTeamID);
             this.TeamBoxForPlayers.Controls.Add(this.TeamIDBoxForPlayer);
             this.TeamBoxForPlayers.Controls.Add(this.label1);
-            this.TeamBoxForPlayers.Location = new System.Drawing.Point(6, 210);
+            this.TeamBoxForPlayers.Location = new System.Drawing.Point(7, 269);
             this.TeamBoxForPlayers.Name = "TeamBoxForPlayers";
             this.TeamBoxForPlayers.Size = new System.Drawing.Size(194, 86);
             this.TeamBoxForPlayers.TabIndex = 5;
@@ -358,7 +384,7 @@ namespace DB_CP
             this.AnalyticGroup.Controls.Add(this.GetAllDesiredPlayers);
             this.AnalyticGroup.Controls.Add(this.PlayerIDForDesired);
             this.AnalyticGroup.Controls.Add(this.label8);
-            this.AnalyticGroup.Location = new System.Drawing.Point(766, 9);
+            this.AnalyticGroup.Location = new System.Drawing.Point(1035, 12);
             this.AnalyticGroup.Name = "AnalyticGroup";
             this.AnalyticGroup.Size = new System.Drawing.Size(221, 179);
             this.AnalyticGroup.TabIndex = 13;
@@ -429,6 +455,10 @@ namespace DB_CP
             // 
             // ManagerGroup
             // 
+            this.ManagerGroup.Controls.Add(this.DeleteDesPlayerManager);
+            this.ManagerGroup.Controls.Add(this.DesiredPlayerForManager);
+            this.ManagerGroup.Controls.Add(this.GetDesiredPlayersForManager);
+            this.ManagerGroup.Controls.Add(this.label17);
             this.ManagerGroup.Controls.Add(this.GetOutcoming);
             this.ManagerGroup.Controls.Add(this.GetIncoming);
             this.ManagerGroup.Controls.Add(this.RejectDeal);
@@ -440,16 +470,27 @@ namespace DB_CP
             this.ManagerGroup.Controls.Add(this.label10);
             this.ManagerGroup.Controls.Add(this.PlayerIDForManager);
             this.ManagerGroup.Controls.Add(this.label9);
-            this.ManagerGroup.Location = new System.Drawing.Point(766, 188);
+            this.ManagerGroup.Location = new System.Drawing.Point(1035, 191);
             this.ManagerGroup.Name = "ManagerGroup";
-            this.ManagerGroup.Size = new System.Drawing.Size(220, 318);
+            this.ManagerGroup.Size = new System.Drawing.Size(220, 475);
             this.ManagerGroup.TabIndex = 15;
             this.ManagerGroup.TabStop = false;
             this.ManagerGroup.Text = "Manager";
             // 
+            // GetDesiredPlayersForManager
+            // 
+            this.GetDesiredPlayersForManager.Cursor = System.Windows.Forms.Cursors.Default;
+            this.GetDesiredPlayersForManager.Location = new System.Drawing.Point(6, 19);
+            this.GetDesiredPlayersForManager.Name = "GetDesiredPlayersForManager";
+            this.GetDesiredPlayersForManager.Size = new System.Drawing.Size(197, 24);
+            this.GetDesiredPlayersForManager.TabIndex = 15;
+            this.GetDesiredPlayersForManager.Text = "Получить желаемых игроков";
+            this.GetDesiredPlayersForManager.UseVisualStyleBackColor = true;
+            this.GetDesiredPlayersForManager.Click += new System.EventHandler(this.GetDesiredPlayersForManager_Click);
+            // 
             // GetOutcoming
             // 
-            this.GetOutcoming.Location = new System.Drawing.Point(7, 264);
+            this.GetOutcoming.Location = new System.Drawing.Point(7, 292);
             this.GetOutcoming.Name = "GetOutcoming";
             this.GetOutcoming.Size = new System.Drawing.Size(197, 47);
             this.GetOutcoming.TabIndex = 24;
@@ -459,7 +500,7 @@ namespace DB_CP
             // 
             // GetIncoming
             // 
-            this.GetIncoming.Location = new System.Drawing.Point(6, 207);
+            this.GetIncoming.Location = new System.Drawing.Point(6, 235);
             this.GetIncoming.Name = "GetIncoming";
             this.GetIncoming.Size = new System.Drawing.Size(197, 51);
             this.GetIncoming.TabIndex = 23;
@@ -469,7 +510,7 @@ namespace DB_CP
             // 
             // RejectDeal
             // 
-            this.RejectDeal.Location = new System.Drawing.Point(6, 174);
+            this.RejectDeal.Location = new System.Drawing.Point(6, 202);
             this.RejectDeal.Name = "RejectDeal";
             this.RejectDeal.Size = new System.Drawing.Size(197, 27);
             this.RejectDeal.TabIndex = 22;
@@ -479,7 +520,7 @@ namespace DB_CP
             // 
             // ConfirmDeal
             // 
-            this.ConfirmDeal.Location = new System.Drawing.Point(6, 141);
+            this.ConfirmDeal.Location = new System.Drawing.Point(6, 169);
             this.ConfirmDeal.Name = "ConfirmDeal";
             this.ConfirmDeal.Size = new System.Drawing.Size(197, 27);
             this.ConfirmDeal.TabIndex = 21;
@@ -489,7 +530,7 @@ namespace DB_CP
             // 
             // DealID
             // 
-            this.DealID.Location = new System.Drawing.Point(103, 112);
+            this.DealID.Location = new System.Drawing.Point(103, 140);
             this.DealID.Name = "DealID";
             this.DealID.Size = new System.Drawing.Size(100, 23);
             this.DealID.TabIndex = 20;
@@ -497,7 +538,7 @@ namespace DB_CP
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(5, 115);
+            this.label11.Location = new System.Drawing.Point(5, 143);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(44, 15);
             this.label11.TabIndex = 19;
@@ -505,7 +546,7 @@ namespace DB_CP
             // 
             // RequestPlayer
             // 
-            this.RequestPlayer.Location = new System.Drawing.Point(6, 79);
+            this.RequestPlayer.Location = new System.Drawing.Point(6, 107);
             this.RequestPlayer.Name = "RequestPlayer";
             this.RequestPlayer.Size = new System.Drawing.Size(197, 27);
             this.RequestPlayer.TabIndex = 15;
@@ -515,7 +556,7 @@ namespace DB_CP
             // 
             // CostForManager
             // 
-            this.CostForManager.Location = new System.Drawing.Point(103, 50);
+            this.CostForManager.Location = new System.Drawing.Point(103, 78);
             this.CostForManager.Name = "CostForManager";
             this.CostForManager.Size = new System.Drawing.Size(100, 23);
             this.CostForManager.TabIndex = 18;
@@ -523,7 +564,7 @@ namespace DB_CP
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(5, 53);
+            this.label10.Location = new System.Drawing.Point(5, 81);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(31, 15);
             this.label10.TabIndex = 17;
@@ -531,7 +572,7 @@ namespace DB_CP
             // 
             // PlayerIDForManager
             // 
-            this.PlayerIDForManager.Location = new System.Drawing.Point(103, 21);
+            this.PlayerIDForManager.Location = new System.Drawing.Point(103, 49);
             this.PlayerIDForManager.Name = "PlayerIDForManager";
             this.PlayerIDForManager.Size = new System.Drawing.Size(100, 23);
             this.PlayerIDForManager.TabIndex = 16;
@@ -539,7 +580,7 @@ namespace DB_CP
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(5, 24);
+            this.label9.Location = new System.Drawing.Point(5, 52);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 15);
             this.label9.TabIndex = 15;
@@ -552,9 +593,9 @@ namespace DB_CP
             this.ModeratorGroup.Controls.Add(this.MakeDeal);
             this.ModeratorGroup.Controls.Add(this.DealIDForModer);
             this.ModeratorGroup.Controls.Add(this.label14);
-            this.ModeratorGroup.Location = new System.Drawing.Point(993, 9);
+            this.ModeratorGroup.Location = new System.Drawing.Point(1262, 12);
             this.ModeratorGroup.Name = "ModeratorGroup";
-            this.ModeratorGroup.Size = new System.Drawing.Size(210, 156);
+            this.ModeratorGroup.Size = new System.Drawing.Size(221, 156);
             this.ModeratorGroup.TabIndex = 25;
             this.ModeratorGroup.TabStop = false;
             this.ModeratorGroup.Text = "Moderator";
@@ -605,12 +646,139 @@ namespace DB_CP
             this.label14.TabIndex = 15;
             this.label14.Text = "DealID";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(1262, 171);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(172, 15);
+            this.label12.TabIndex = 26;
+            this.label12.Text = "Информация о пользователе:";
+            // 
+            // UserLogin
+            // 
+            this.UserLogin.AutoSize = true;
+            this.UserLogin.Location = new System.Drawing.Point(1327, 192);
+            this.UserLogin.Name = "UserLogin";
+            this.UserLogin.Size = new System.Drawing.Size(37, 15);
+            this.UserLogin.TabIndex = 27;
+            this.UserLogin.Text = "Login";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(1262, 192);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(40, 15);
+            this.label13.TabIndex = 28;
+            this.label13.Text = "Login:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(1262, 215);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(60, 15);
+            this.label15.TabIndex = 29;
+            this.label15.Text = "Password:";
+            // 
+            // Password
+            // 
+            this.Password.AutoSize = true;
+            this.Password.Location = new System.Drawing.Point(1328, 215);
+            this.Password.Name = "Password";
+            this.Password.Size = new System.Drawing.Size(39, 15);
+            this.Password.TabIndex = 30;
+            this.Password.Text = "Passw";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(1263, 239);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(68, 15);
+            this.label16.TabIndex = 31;
+            this.label16.Text = "Permission:";
+            // 
+            // Permission
+            // 
+            this.Permission.AutoSize = true;
+            this.Permission.Location = new System.Drawing.Point(1328, 236);
+            this.Permission.Name = "Permission";
+            this.Permission.Size = new System.Drawing.Size(65, 15);
+            this.Permission.TabIndex = 32;
+            this.Permission.Text = "Permission";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(1263, 260);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(18, 15);
+            this.label18.TabIndex = 33;
+            this.label18.Text = "ID";
+            // 
+            // Status
+            // 
+            this.Status.AutoSize = true;
+            this.Status.BackColor = System.Drawing.SystemColors.Control;
+            this.Status.Location = new System.Drawing.Point(1328, 260);
+            this.Status.Name = "Status";
+            this.Status.Size = new System.Drawing.Size(39, 15);
+            this.Status.TabIndex = 34;
+            this.Status.Text = "Status";
+            // 
+            // DeleteDesPlayerManager
+            // 
+            this.DeleteDesPlayerManager.Location = new System.Drawing.Point(8, 374);
+            this.DeleteDesPlayerManager.Name = "DeleteDesPlayerManager";
+            this.DeleteDesPlayerManager.Size = new System.Drawing.Size(197, 27);
+            this.DeleteDesPlayerManager.TabIndex = 15;
+            this.DeleteDesPlayerManager.Text = "Удалить желаемого игрока";
+            this.DeleteDesPlayerManager.UseVisualStyleBackColor = true;
+            this.DeleteDesPlayerManager.Click += new System.EventHandler(this.DeleteDesPlayerManager_Click);
+            // 
+            // DesiredPlayerForManager
+            // 
+            this.DesiredPlayerForManager.Location = new System.Drawing.Point(105, 345);
+            this.DesiredPlayerForManager.Name = "DesiredPlayerForManager";
+            this.DesiredPlayerForManager.Size = new System.Drawing.Size(100, 23);
+            this.DesiredPlayerForManager.TabIndex = 17;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(7, 348);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(89, 15);
+            this.label17.TabIndex = 16;
+            this.label17.Text = "DesiredPlayerID";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(1262, 236);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(68, 15);
+            this.label19.TabIndex = 31;
+            this.label19.Text = "Permission:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1268, 617);
+            this.ClientSize = new System.Drawing.Size(1471, 673);
+            this.Controls.Add(this.Status);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.Permission);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.Password);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label13);
+            this.Controls.Add(this.UserLogin);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.ModeratorGroup);
             this.Controls.Add(this.AnalyticGroup);
             this.Controls.Add(this.ManagerGroup);
@@ -637,6 +805,7 @@ namespace DB_CP
             this.ModeratorGroup.ResumeLayout(false);
             this.ModeratorGroup.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -700,6 +869,21 @@ namespace DB_CP
         private System.Windows.Forms.TextBox DealIDForModer;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button GetAllDeals;
+        private Button GetPlayerTeamStat;
+        private Button GetDesiredPlayersForManager;
+        private Label label12;
+        private Label UserLogin;
+        private Label label13;
+        private Label label15;
+        private Label Password;
+        private Label label16;
+        private Label Permission;
+        private Label label18;
+        private Label Status;
+        private Button DeleteDesPlayerManager;
+        private TextBox DesiredPlayerForManager;
+        private Label label17;
+        private Label label19;
     }
 }
 

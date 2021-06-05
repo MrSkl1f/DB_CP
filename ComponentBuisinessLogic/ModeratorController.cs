@@ -11,8 +11,8 @@ namespace ComponentBuisinessLogic
     public class ModeratorController : UserController
     {
         IAvailableDealsRepository dealsRepository;
-        public ModeratorController(Userinfo user, ILogger<UserController> logger, IAvailableDealsRepository dealsRep, IPlayerRepository playerRep, ITeamRepository teamRep, IManagementRepository managementRep, IDesiredPlayersRepository desiredPlayerRep, IStatisticsRepository statRep) :
-            base(user, logger, playerRep, teamRep, managementRep, desiredPlayerRep, statRep)
+        public ModeratorController(Userinfo user, ILogger<UserController> logger, IFunctionsRepository funcRep, IAvailableDealsRepository dealsRep, IPlayerRepository playerRep, ITeamRepository teamRep, IManagementRepository managementRep, IDesiredPlayersRepository desiredPlayerRep, IStatisticsRepository statRep) :
+            base(user, logger, funcRep, playerRep, teamRep, managementRep, desiredPlayerRep, statRep)
         {
             dealsRepository = dealsRep;
         }
@@ -21,24 +21,34 @@ namespace ComponentBuisinessLogic
             Availabledeal deal = dealsRepository.GetDealByID(dealID);
             if (deal == null)
             {
+                _logger.LogError("Deal {Number} was not fount at {dateTime}", dealID, DateTime.UtcNow);
                 return false;
             }
-            Team newTeam = teamRepository.FindTeamByManagement(deal.Tomanagement);
+            Team newTeam = teamRepository.FindTeamByManagement((int)deal.Tomanagementid);
             if (newTeam == null)
             {
+                _logger.LogError("New team was not fount by Tomanagementid {id} at {dateTime}", (int)deal.Tomanagementid, DateTime.UtcNow);
                 return false;
             }
-            Team lastTeam = teamRepository.FindTeamByManagement(deal.Frommanagement);
+            Team lastTeam = teamRepository.FindTeamByManagement((int)deal.Frommanagementid);
             if (lastTeam == null)
             {
+                _logger.LogError("Last team was not fount by Frommanagementid {id} at {dateTime}", (int)deal.Frommanagementid, DateTime.UtcNow);
+                return false;
+            }
+            Player player = playerRepository.FindPlayerByID((int)deal.Playerid);
+            if (player == null)
+            {
+                _logger.LogError("Player {Number} was not fount at {dateTime}", (int)deal.Playerid, DateTime.UtcNow);
                 return false;
             }
             if (! CheckOportunityToBuy(deal.Cost, newTeam))
             {
+                _logger.LogError("Deal cost {Number} is more than team balance at {dateTime}", deal.Cost, DateTime.UtcNow);
                 return false;
             }
             UpdateTeamBalance(lastTeam, newTeam, deal.Cost);
-            UpdatePlayerTeam(deal.Player, newTeam.Teamid);
+            UpdatePlayerTeam(player, newTeam.Teamid);
             dealsRepository.Delete(deal);
             return true;
         }
@@ -47,6 +57,7 @@ namespace ComponentBuisinessLogic
             Availabledeal deal = dealsRepository.GetDealByID(dealID);
             if (deal == null)
             {
+                _logger.LogError("Deal {Number} was not fount at {dateTime}", dealID, DateTime.UtcNow);
                 return false;
             }
             dealsRepository.Delete(deal);
@@ -63,10 +74,6 @@ namespace ComponentBuisinessLogic
             newTeam.Balance += cost;
             teamRepository.Update(lastTeam);
             teamRepository.Update(newTeam);
-        }
-        private void DeleteDeal(Availabledeal deal)
-        {
-            dealsRepository.Delete(deal);
         }
         private bool CheckOportunityToBuy(int cost, Team team)
         {

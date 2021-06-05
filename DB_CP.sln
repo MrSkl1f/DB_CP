@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DB_CP", "DB_CP\DB_CP.csproj", "{A6EA804D-032A-4F5B-B38C-13442ADA65DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MainForm", "DB_CP\MainForm.csproj", "{A6EA804D-032A-4F5B-B38C-13442ADA65DB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComponentAccessToDB", "ComponentAccessToDB\ComponentAccessToDB.csproj", "{6CC39983-766B-4F4B-8404-BAD1A1E39C6E}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComponentBuisinessLogic", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthForm", "AuthForm\AuthForm.csproj", "{5593D1FC-3FCD-4288-A50F-65A5E6EBDA85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechnologicalUI", "TechnologicalUI\TechnologicalUI.csproj", "{D6440F6C-4B13-4F58-8EF0-0A04D1580037}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechnologicalUI", "TechnologicalUI\TechnologicalUI.csproj", "{D6440F6C-4B13-4F58-8EF0-0A04D1580037}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -11,10 +11,15 @@ namespace ComponentBuisinessLogic
     public class ManagerController : UserController
     {
         IAvailableDealsRepository dealsRepository;
-        public ManagerController(Userinfo user, ILogger<UserController> logger, IAvailableDealsRepository dealsRep, IPlayerRepository playerRep, ITeamRepository teamRep, IManagementRepository managementRep, IDesiredPlayersRepository desiredPlayerRep, IStatisticsRepository statRep) :
-            base(user, logger, playerRep, teamRep, managementRep, desiredPlayerRep, statRep)
+        public ManagerController(Userinfo user, ILogger<UserController> logger, IFunctionsRepository funcRep, IAvailableDealsRepository dealsRep, IPlayerRepository playerRep, ITeamRepository teamRep, IManagementRepository managementRep, IDesiredPlayersRepository desiredPlayerRep, IStatisticsRepository statRep) :
+            base(user, logger, funcRep, playerRep, teamRep, managementRep, desiredPlayerRep, statRep)
         {
             dealsRepository = dealsRep;
+        }
+        public List<Desiredplayer> GetAllDesiredPlayers()
+        {
+            Management management = managementRepository.FindByManager(_user.Id);
+            return desiredPlayers.GetPlayersByManagement(management);
         }
         public bool RequestPlayer(int playerID, int cost)
         {
@@ -49,7 +54,7 @@ namespace ComponentBuisinessLogic
             {
                 return false;
             }
-            Team team = teamRepository.FindTeamByManagement(management);
+            Team team = teamRepository.FindTeamByManagement((int)management.Managementid);
             if (team == null)
             {
                 return false;
@@ -93,6 +98,16 @@ namespace ComponentBuisinessLogic
                 return null;
             }
             return dealsRepository.GetOutgoaingDeals(management);
+        }
+        public bool DeleteDesiredPlayer(int id)
+        {
+            Desiredplayer player = desiredPlayers.GetPlayerByID(id);
+            if (player == null)
+            {
+                return false;
+            }
+            desiredPlayers.Delete(player);
+            return true;
         }
     }
 }
