@@ -19,7 +19,11 @@ namespace ComponentBuisinessLogic
         public List<Desiredplayer> GetAllDesiredPlayers()
         {
             Management management = managementRepository.FindByManager(_user.Id);
-            return desiredPlayers.GetPlayersByManagement(management);
+            if (management != null)
+            {
+                return desiredPlayers.GetPlayersByManagement(management);
+            }
+            return null;
         }
         public bool RequestPlayer(int playerID, int cost)
         {

@@ -11,10 +11,12 @@ namespace ComponentBuisinessLogic
     public class ModeratorController : UserController
     {
         IAvailableDealsRepository dealsRepository;
-        public ModeratorController(Userinfo user, ILogger<UserController> logger, IFunctionsRepository funcRep, IAvailableDealsRepository dealsRep, IPlayerRepository playerRep, ITeamRepository teamRep, IManagementRepository managementRep, IDesiredPlayersRepository desiredPlayerRep, IStatisticsRepository statRep) :
+        IUserInfoRepository userInfoRepository;
+        public ModeratorController(Userinfo user, ILogger<UserController> logger, IFunctionsRepository funcRep, IUserInfoRepository userRep, IAvailableDealsRepository dealsRep, IPlayerRepository playerRep, ITeamRepository teamRep, IManagementRepository managementRep, IDesiredPlayersRepository desiredPlayerRep, IStatisticsRepository statRep) :
             base(user, logger, funcRep, playerRep, teamRep, managementRep, desiredPlayerRep, statRep)
         {
             dealsRepository = dealsRep;
+            userInfoRepository = userRep;
         }
         public bool MakeDeal(int dealID)
         {
@@ -24,13 +26,13 @@ namespace ComponentBuisinessLogic
                 _logger.LogError("Deal {Number} was not fount at {dateTime}", dealID, DateTime.UtcNow);
                 return false;
             }
-            Team newTeam = teamRepository.FindTeamByManagement((int)deal.Tomanagementid);
+            Team newTeam = teamRepository.FindTeamByManagement((int)deal.Frommanagementid);
             if (newTeam == null)
             {
                 _logger.LogError("New team was not fount by Tomanagementid {id} at {dateTime}", (int)deal.Tomanagementid, DateTime.UtcNow);
                 return false;
             }
-            Team lastTeam = teamRepository.FindTeamByManagement((int)deal.Frommanagementid);
+            Team lastTeam = teamRepository.FindTeamByManagement((int)deal.Tomanagementid);
             if (lastTeam == null)
             {
                 _logger.LogError("Last team was not fount by Frommanagementid {id} at {dateTime}", (int)deal.Frommanagementid, DateTime.UtcNow);
@@ -82,6 +84,31 @@ namespace ComponentBuisinessLogic
         public List<Availabledeal> GetAllDeals()
         {
             return dealsRepository.GetAll();
+        }
+        public bool AddNewUser(string login, string hash, int perms)
+        {
+            if (userInfoRepository.FindUserByLogin(login) != null)
+            {
+                return false;
+            }
+            Userinfo user = new Userinfo { Login = login, Hash = hash, Permission = perms };
+            userInfoRepository.Add(user);
+            return true;
+        }
+        public bool DeleteUser(int id)
+        {
+            Userinfo user = userInfoRepository.FindUserByID(id);
+            if (user == null)
+            {
+                _logger.LogError("User {id} was not found at {dateTime}", id, DateTime.UtcNow);
+                return false;
+            }
+            userInfoRepository.Delete(user);
+            return true;
+        }
+        public List<Userinfo> GetAllUsers()
+        {
+            return userInfoRepository.GetAll();
         }
     }
 }

@@ -1,0 +1,16 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{kosrem}[03/03/2020]
+%----------------------------------------------------------------------%
+\RequirePackage{ifthen}
+\RequirePackage{xkeyval}
+\RequirePackage{xcolor}
+\RequirePackage{tikz}
+\RequirePackage{calc}
+\RequirePackage{graphicx}
+\RequirePackage[colorinlistoftodos, shadow]{todonotes}
+\newcommand{\koshi}[1]{\todo[color=red!50, fancyline, inline]{#1}}
+\newcommand{\kosme}[1]{\todo[color=orange!50, fancyline, inline]{#1}}
+\newcommand{\koslo}[1]{\todo[color=cyan!50, fancyline, inline]{#1}}
+%----------------------------------------------------------------------%
+\endinput
+%----------------------------------------------------------------------%

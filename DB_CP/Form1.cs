@@ -124,6 +124,15 @@ namespace DB_CP
             dataGridView1.Columns.Add("washers", "Количество шайб");
             dataGridView1.Columns.Add("gametime", "Игровое время");
         }
+        private void AddColumnsUserInfo()
+        {
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Clear();
+            dataGridView1.Columns.Add("id", "ID Пользователя");
+            dataGridView1.Columns.Add("login", "Логин пользователя");
+            dataGridView1.Columns.Add("hash", "Пароль пользователя");
+            dataGridView1.Columns.Add("permission", "Разрешение");
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             //Application.Exit();
@@ -511,7 +520,69 @@ namespace DB_CP
                 MessageBox.Show("Не удалось удалить игрока");
                 return;
             }
-            GetAllDesiredPlayers_Click(sender, e);
+            GetDesiredPlayersForManager_Click(sender, e);
+        }
+
+        private void GetAllUsers_Click(object sender, EventArgs e)
+        {
+            AddColumnsUserInfo();
+            List<Userinfo> users = _moderator.GetAllUsers();
+            if (users != null)
+            {
+                foreach (Userinfo user in users)
+                {
+                    dataGridView1.Rows.Add(user.Id, user.Login, user.Hash, user.Permission);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Пользователи не найдены");
+            }
+        }
+
+        private void AddNewUser_Click(object sender, EventArgs e)
+        {
+            if (Username.Text == "")
+            {
+                MessageBox.Show("Вы не ввели логин");
+                return;
+            }
+            if (Hash.Text == "")
+            {
+                MessageBox.Show("Вы не ввели пароль");
+                return;
+            }
+            if (Perm.Text == "")
+            {
+                MessageBox.Show("Вы не ввели permissions");
+                return;
+            }
+            if (! _moderator.AddNewUser(Username.Text, Hash.Text, Convert.ToInt32(Perm.Text)))
+            {
+                MessageBox.Show("Пользователь с таким логином уже существует");
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Пользователь добавлен");
+            }
+            GetAllUsers_Click(sender, e);
+        }
+
+        private void DeleteUser_Click(object sender, EventArgs e)
+        {
+            if (UserID.Text == "")
+            {
+                MessageBox.Show("Вы не ввели ID");
+                return;
+            }
+            if (_moderator.DeleteUser(Convert.ToInt32(UserID.Text)))
+            {
+                MessageBox.Show("Пользователь удален");
+                GetAllUsers_Click(sender, e);
+                return;
+            }
+            MessageBox.Show("Пользователь не найден");
         }
     }
 }
