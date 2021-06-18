@@ -72,8 +72,8 @@ namespace ComponentBuisinessLogic
         }
         private void UpdateTeamBalance(Team lastTeam, Team newTeam, int cost)
         {
-            lastTeam.Balance -= cost;
-            newTeam.Balance += cost;
+            lastTeam.Balance += cost;
+            newTeam.Balance -= cost;
             teamRepository.Update(lastTeam);
             teamRepository.Update(newTeam);
         }

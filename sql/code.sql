@@ -11,6 +11,7 @@ create table if not exists Management (
     AnalysistID int references UserInfo(id),
     ManagerID int references UserInfo(id)
 );
+--\COPY Management FROM 'C:/Users/MrSklif/Desktop/BMSTU/6sem/DB_CP/sql/Management.csv' DELIMITER ',' csv;
 
 create table if not exists Team (
     TeamID int not null primary key,
@@ -21,13 +22,13 @@ create table if not exists Team (
     Stadium varchar(60) not null,
     Balance int not null
 );
-
+--\COPY Team FROM 'C:/Users/MrSklif/Desktop/BMSTU/6sem/DB_CP/sql/Team.csv' DELIMITER ',' csv;
 create table if not exists Statistics (
     StatisticsID int not null primary key,
     numberOfWashers int not null,
     averageGameTime int not null
 );
-
+--\COPY Statistics FROM 'C:/Users/MrSklif/Desktop/BMSTU/6sem/DB_CP/sql/Statistics.csv' DELIMITER ',' csv;
 create table if not exists Player (
     PlayerID int not null primary key,
     TeamID int references Team(TeamID),
@@ -41,7 +42,7 @@ create table if not exists Player (
     country varchar(50) not null,
     cost int not null
 );
-
+--\COPY Player FROM 'C:/Users/MrSklif/Desktop/BMSTU/6sem/DB_CP/sql/Player.csv' DELIMITER ',' csv;
 create table if not exists AvailableDeals (
     Id int primary key not null,
     PlayerID int references Player(PlayerID),
@@ -57,7 +58,6 @@ create table if not exists DesiredPlayers (
     TeamID int references Team(TeamID),
     ManagementID int references Management(ManagementID)
 ); 
-
 -- Password encryption
 create or replace procedure password_encryption(new_password varchar(30), UserId int)
 language plpgsql
@@ -80,13 +80,16 @@ insert into Player values (2, 1, 2, 'Denis', 'ca', 93, 193, 21, 20, 'Russia', 50
 
 -- ROLE Guest
 create role guest with login password '1234';
-grant all privileges on table userinfo to guest;
+grant select on table userinfo to guest;
 -- ROLE Analytic
 create role analytic with login password '1234';
-grant all privileges on table player, team, management, desiredplayers, statistics to analytic;
+grant select on table player, team, management, statistics to analytic;
+grant all privileges on table desiredplayers to analytic;
 -- ROLE Manager
 create role manager with login password '1234';
-grant all privileges on table player, team, management, desiredplayers, availabledeals, statistics to manager;
+grant select on table player, team, management, statistics to manager;
+grant select, delete on table desiredplayers to manager;
+grant select, delete, insert on table availabledeals to manager;
 
 select PlayerTeam.playerid as PlayerID, PlayerTeam.player as Player, PlayerTeam.Team, statistics.numberOfWashers as Washers, statistics.averageGameTime as gametime
 from (
